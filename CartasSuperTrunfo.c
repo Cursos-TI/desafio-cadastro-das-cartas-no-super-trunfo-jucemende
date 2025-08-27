@@ -2,12 +2,13 @@
 
 typedef struct {
     char codigo[4];
-    int populacao;
+    unsigned long int populacao; // Mudança no tipo de variacelA
     float area;
     float pib;
     int pontos_turisticos;
     float densidade;
     float pib_per_capita;
+    float super_poder; // Criação da variavel de super poder
 } Carta;
 
 int main(void) {
@@ -19,7 +20,7 @@ int main(void) {
     scanf("%3s", carta1.codigo);
 
     printf("Populacao (inteiro): ");
-    scanf("%d", &carta1.populacao);
+    scanf("%lu", &carta1.populacao);
 
     printf("Area (float, use ponto): ");
     scanf("%f", &carta1.area);
@@ -34,6 +35,14 @@ int main(void) {
     carta1.densidade = carta1.populacao / carta1.area;
     carta1.pib_per_capita = carta1.pib / carta1.populacao;
 
+    // Atribui valor a variavel de super poder 
+    carta1.super_poder = (float)carta1.populacao 
+                       + carta1.area 
+                       + carta1.pib 
+                       + carta1.pontos_turisticos 
+                       + carta1.pib_per_capita 
+                       + (1.0f / carta1.densidade);
+
     printf("\n");
 
     /* --- Cadastro da Carta 2 --- */
@@ -42,7 +51,7 @@ int main(void) {
     scanf("%3s", carta2.codigo);
 
     printf("Populacao (inteiro): ");
-    scanf("%d", &carta2.populacao);
+    scanf("%lu", &carta2.populacao);
 
     printf("Area (float, use ponto): ");
     scanf("%f", &carta2.area);
@@ -57,30 +66,51 @@ int main(void) {
     carta2.densidade = carta2.populacao / carta2.area;
     carta2.pib_per_capita = carta2.pib / carta2.populacao;
 
+    // Atribui valor a variavel de super poder     
+    carta2.super_poder = (float)carta2.populacao 
+                       + carta2.area 
+                       + carta2.pib 
+                       + carta2.pontos_turisticos 
+                       + carta2.pib_per_capita 
+                       + (1.0f / carta2.densidade);
+
+
     /* --- Exibicao dos dados --- */
     printf("\n=========================\n");
     printf("      CARTA 1\n");
     printf("=========================\n");
     printf("Codigo: %s\n", carta1.codigo);
-    printf("Populacao: %d\n", carta1.populacao);
+    printf("Populacao: %lu\n", carta1.populacao);
     printf("Area: %.2f\n", carta1.area);
     printf("PIB: %.2f\n", carta1.pib);
     printf("Pontos turisticos: %d\n", carta1.pontos_turisticos);
     // Print dos calculos novos
     printf("Densidade populacional: %.2f hab/km²\n", carta1.densidade);
     printf("PIB per capita: %.2f\n", carta1.pib_per_capita);
+    printf("Super Poder: %.2f\n", carta1.super_poder);
 
     printf("\n=========================\n");
     printf("      CARTA 2\n");
     printf("=========================\n");
     printf("Codigo: %s\n", carta2.codigo);
-    printf("Populacao: %d\n", carta2.populacao);
+    printf("Populacao: %lu\n", carta2.populacao);
     printf("Area: %.2f\n", carta2.area);
     printf("PIB: %.2f\n", carta2.pib);
     printf("Pontos turisticos: %d\n", carta2.pontos_turisticos);
     // Print dos novos calculos
     printf("Densidade populacional: %.2f hab/km²\n", carta2.densidade);
     printf("PIB per capita: %.2f\n", carta2.pib_per_capita);
+    printf("Super Poder: %.2f\n", carta1.super_poder);
+
+    // Aqui exibo as comparações
+    printf("\n===== COMPARACOES =====\n");
+    printf("Populacao: %d\n", (carta1.populacao > carta2.populacao));
+    printf("Area: %d\n", (carta1.area > carta2.area));
+    printf("PIB: %d\n", (carta1.pib > carta2.pib));
+    printf("Pontos turisticos: %d\n", (carta1.pontos_turisticos > carta2.pontos_turisticos));
+    printf("Densidade populacional: %d\n", (carta1.densidade < carta2.densidade)); // menor vence
+    printf("PIB per capita: %d\n", (carta1.pib_per_capita > carta2.pib_per_capita));
+    printf("Super Poder: %d\n", (carta1.super_poder > carta2.super_poder));
 
     return 0;
 }
